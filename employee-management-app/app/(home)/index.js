@@ -15,7 +15,7 @@ const index = () => {
           <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", margin: 12 }}>
             <Feather name="bar-chart" size={24} color="black" />
             <Text style={{ fontSize: 16, fontWeight: "600" }}>Employee Management System</Text>
-            <Entypo name="lock" size={24} colors="black" />
+            <Entypo name="lock" size={24} color="black" />
           </View>
 
           <View
