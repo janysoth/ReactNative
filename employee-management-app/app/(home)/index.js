@@ -1,14 +1,17 @@
-import { Entypo, Feather, Ionicons, MaterialCommunityIcons, Octicons } from "@expo/vector-icons";
+import { Entypo, Feather, Ionicons, Octicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import React from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 
+import InfoCard from '../../components/InfoCard';
+import ReportCard from "../../components/ReportCard";
+
 const index = () => {
   return (
     <ScrollView>
       <LinearGradient colors={["#7F7FD5", "#E9E4F0"]} style={{ flex: 1 }}>
-        <View styles={{ padding: 12 }}>
+        <View style={{ padding: 12 }}>
           <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", margin: 12 }}>
             <Feather name="bar-chart" size={24} color="black" />
             <Text style={{ fontSize: 16, fontWeight: "600" }}>Employee Management System</Text>
@@ -95,204 +98,82 @@ const index = () => {
             }}
           >
             {/* Attendance Report */}
-            <Pressable
-              style={{
-                backgroundColor: "#BE93C5",
-                borderRadius: 6,
-                padding: 10,
-                flexDirection: "row",
-                alignItems: "center",
-                marginVertical: 10,
-              }}
-            >
-              <View
-                style={{
-                  padding: 7,
-                  width: 45,
-                  height: 45,
-                  borderRadius: 7,
-                  backgroundColor: "white",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Ionicons name="newspaper-outline" size={24} color="black" />
-              </View>
-              <Text
-                style={{
-                  marginLeft: 10,
-                  fontSize: 16,
-                  fontWeight: "600",
-                  flex: 1,
-                }}
-              >
-                Attendance Report
-              </Text>
-
-              <View
-                style={{
-                  width: 35,
-                  height: 35,
-                  borderRadius: 7,
-                  backgroundColor: "white",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Entypo name="chevron-right" size={24} color="black" />
-              </View>
-            </Pressable>
-            {/* End of Attendance Report */}
+            <ReportCard
+              icon="newspaper-outline"
+              IconComponent={Ionicons}
+              title="Attendance Report"
+            />
 
             {/* Summary Report */}
-            <Pressable
-              style={{
-                backgroundColor: "#BE93C5",
-                borderRadius: 6,
-                padding: 10,
-                flexDirection: "row",
-                alignItems: "center",
-                marginVertical: 10,
-              }}
-            >
-              <View
-                style={{
-                  padding: 7,
-                  width: 45,
-                  height: 45,
-                  borderRadius: 7,
-                  backgroundColor: "white",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Octicons name="repo-pull" size={24} color="black" />
-              </View>
-              <Text
-                style={{
-                  marginLeft: 10,
-                  fontSize: 16,
-                  fontWeight: "600",
-                  flex: 1,
-                }}
-              >
-                Summary Report
-              </Text>
-
-              <View
-                style={{
-                  width: 35,
-                  height: 35,
-                  borderRadius: 7,
-                  backgroundColor: "white",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Entypo name="chevron-right" size={24} color="black" />
-              </View>
-            </Pressable>
-            {/* End of Summary Report */}
+            <ReportCard
+              icon="repo-pull"
+              IconComponent={Octicons}
+              title="Summary Report"
+            />
 
             {/* All Generate Report */}
-            <Pressable
-              style={{
-                backgroundColor: "#BE93C5",
-                borderRadius: 6,
-                padding: 10,
-                flexDirection: "row",
-                alignItems: "center",
-                marginVertical: 10,
-              }}
-            >
-              <View
-                style={{
-                  padding: 7,
-                  width: 45,
-                  height: 45,
-                  borderRadius: 7,
-                  backgroundColor: "white",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Octicons name="report" size={24} color="black" />
-              </View>
-              <Text
-                style={{
-                  marginLeft: 10,
-                  fontSize: 16,
-                  fontWeight: "600",
-                  flex: 1,
-                }}
-              >
-                All Generate Report
-              </Text>
-
-              <View
-                style={{
-                  width: 35,
-                  height: 35,
-                  borderRadius: 7,
-                  backgroundColor: "white",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Entypo name="chevron-right" size={24} color="black" />
-              </View>
-            </Pressable>
-            {/* End of All Generate Report */}
+            <ReportCard
+              icon="report"
+              IconComponent={Octicons}
+              title="All Generate Report"
+            />
 
             {/* Overtime Employees */}
-            <Pressable
-              style={{
-                backgroundColor: "#BE93C5",
-                borderRadius: 6,
-                padding: 10,
-                flexDirection: "row",
-                alignItems: "center",
-                marginVertical: 10,
-              }}
-            >
-              <View
-                style={{
-                  padding: 7,
-                  width: 45,
-                  height: 45,
-                  borderRadius: 7,
-                  backgroundColor: "white",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Ionicons name="people" size={24} color="black" />
-              </View>
-              <Text
-                style={{
-                  marginLeft: 10,
-                  fontSize: 16,
-                  fontWeight: "600",
-                  flex: 1,
-                }}
-              >
-                Overtime Employees
-              </Text>
+            <ReportCard
+              icon="people"
+              IconComponent={Ionicons}
+              title="Overtime Employees"
+            />
+          </View>
 
-              <View
-                style={{
-                  width: 35,
-                  height: 35,
-                  borderRadius: 7,
-                  backgroundColor: "white",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Entypo name="chevron-right" size={24} color="black" />
-              </View>
-            </Pressable>
-            {/* End of Overtime Employees */}
+          <View
+            style={{
+              marginTop: 20,
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 12,
+            }}
+          >
+            {/* Attendance Criteria */}
+            <InfoCard
+              backgroundColor="#f79d00"
+              iconName="guy-fawkes-mask"
+              iconType="MaterialCommunityIcons"
+              title="Attendance Criteria"
+            />
+
+            {/* Increased Workflow */}
+            <InfoCard
+              backgroundColor="#ABCABA"
+              iconName="bar-chart"
+              iconType="Feather"
+              title="Increased Workflow"
+            />
+          </View>
+
+          <View
+            style={{
+              marginTop: 20,
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 12,
+            }}
+          >
+            {/* Cost Savings */}
+            <InfoCard
+              backgroundColor="#D3CCE3"
+              iconName="guy-fawkes-mask"
+              iconType="MaterialCommunityIcons"
+              title="Cost Savings"
+            />
+
+            {/* Employee Performance */}
+            <InfoCard
+              backgroundColor="#bdc3c7"
+              iconName="bar-chart"
+              iconType="Feather"
+              title="Employee Performance"
+            />
           </View>
         </View>
       </LinearGradient>
