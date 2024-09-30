@@ -9,7 +9,7 @@ const index = () => {
     <ScrollView>
       <LinearGradient colors={["#7F7FD5", "#E9E4F0"]} style={{ flex: 1 }}>
         <View styles={{ padding: 12 }}>
-          <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+          <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", margin: 12 }}>
             <Feather name="bar-chart" size={24} color="black" />
             <Text style={{ fontSize: 16, fontWeight: "600" }}>Employee Management System</Text>
             <Entypo name="lock" size={24} colors="black" />
@@ -143,6 +143,156 @@ const index = () => {
               </View>
             </Pressable>
             {/* End of Attendance Report */}
+
+            {/* Summary Report */}
+            <Pressable
+              style={{
+                backgroundColor: "#BE93C5",
+                borderRadius: 6,
+                padding: 10,
+                flexDirection: "row",
+                alignItems: "center",
+                marginVertical: 10,
+              }}
+            >
+              <View
+                style={{
+                  padding: 7,
+                  width: 45,
+                  height: 45,
+                  borderRadius: 7,
+                  backgroundColor: "white",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Octicons name="repo-pull" size={24} color="black" />
+              </View>
+              <Text
+                style={{
+                  marginLeft: 10,
+                  fontSize: 16,
+                  fontWeight: "600",
+                  flex: 1,
+                }}
+              >
+                Summary Report
+              </Text>
+
+              <View
+                style={{
+                  width: 35,
+                  height: 35,
+                  borderRadius: 7,
+                  backgroundColor: "white",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Entypo name="chevron-right" size={24} color="black" />
+              </View>
+            </Pressable>
+            {/* End of Summary Report */}
+
+            {/* All Generate Report */}
+            <Pressable
+              style={{
+                backgroundColor: "#BE93C5",
+                borderRadius: 6,
+                padding: 10,
+                flexDirection: "row",
+                alignItems: "center",
+                marginVertical: 10,
+              }}
+            >
+              <View
+                style={{
+                  padding: 7,
+                  width: 45,
+                  height: 45,
+                  borderRadius: 7,
+                  backgroundColor: "white",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Octicons name="report" size={24} color="black" />
+              </View>
+              <Text
+                style={{
+                  marginLeft: 10,
+                  fontSize: 16,
+                  fontWeight: "600",
+                  flex: 1,
+                }}
+              >
+                All Generate Report
+              </Text>
+
+              <View
+                style={{
+                  width: 35,
+                  height: 35,
+                  borderRadius: 7,
+                  backgroundColor: "white",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Entypo name="chevron-right" size={24} color="black" />
+              </View>
+            </Pressable>
+            {/* End of All Generate Report */}
+
+            {/* Overtime Employees */}
+            <Pressable
+              style={{
+                backgroundColor: "#BE93C5",
+                borderRadius: 6,
+                padding: 10,
+                flexDirection: "row",
+                alignItems: "center",
+                marginVertical: 10,
+              }}
+            >
+              <View
+                style={{
+                  padding: 7,
+                  width: 45,
+                  height: 45,
+                  borderRadius: 7,
+                  backgroundColor: "white",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Ionicons name="people" size={24} color="black" />
+              </View>
+              <Text
+                style={{
+                  marginLeft: 10,
+                  fontSize: 16,
+                  fontWeight: "600",
+                  flex: 1,
+                }}
+              >
+                Overtime Employees
+              </Text>
+
+              <View
+                style={{
+                  width: 35,
+                  height: 35,
+                  borderRadius: 7,
+                  backgroundColor: "white",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Entypo name="chevron-right" size={24} color="black" />
+              </View>
+            </Pressable>
+            {/* End of Overtime Employees */}
           </View>
         </View>
       </LinearGradient>
