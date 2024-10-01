@@ -9,6 +9,7 @@ import ListCard from "../../components/ListCard";
 import ReportCard from "../../components/ReportCard";
 
 const index = () => {
+  const router = useRouter();
   return (
     <ScrollView>
       <LinearGradient colors={["#7F7FD5", "#E9E4F0"]} style={{ flex: 1 }}>
@@ -23,7 +24,7 @@ const index = () => {
             <ListCard
               iconName="people"
               text="Employees List"
-              onPress={() => { }}
+              onPress={() => router.push("/(home)/employees")}
             />
 
             <ListCard
