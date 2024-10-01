@@ -2,9 +2,10 @@ import { Entypo } from '@expo/vector-icons';
 import React from 'react';
 import { Pressable, Text, View } from 'react-native';
 
-const ReportCard = ({ icon, IconComponent, title }) => {
+const ReportCard = ({ icon, IconComponent, title, onPress }) => {
   return (
     <Pressable
+      onPress={onPress}
       style={{
         backgroundColor: "#BE93C5",
         borderRadius: 6,
