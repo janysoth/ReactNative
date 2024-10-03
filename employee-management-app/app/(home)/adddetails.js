@@ -3,6 +3,14 @@ import { Pressable, ScrollView, StyleSheet, Switch, Text, TextInput, View } from
 
 const adddetails = () => {
   const [isActive, setIsActive] = useState(true);
+  const [name, setName] = useState("");
+  const [employeeId, setEmployeeId] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [mobileNumber, setMobileNumber] = useState("");
+  const [joiningDate, setJoiningDate] = useState("");
+  const [salary, setSalary] = useState("");
+  const [address, setAddress] = useState("");
+  const [designation, setDesignation] = useState("");
 
   return (
     <ScrollView style={styles.container}>
@@ -20,6 +28,8 @@ const adddetails = () => {
         <View style={styles.inputGroup}>
           <Text style={styles.label}>Full Name (First and last Name)</Text>
           <TextInput
+            value={name}
+            onChangeText={(text) => setName(text)}
             style={styles.input}
             placeholder="Enter your full name..."
             placeholderTextColor={"black"}
@@ -30,6 +40,8 @@ const adddetails = () => {
         <View style={styles.inputGroup}>
           <Text style={styles.label}>Employee ID</Text>
           <TextInput
+            value={employeeId}
+            onChangeText={(text) => setEmployeeId(text)}
             style={styles.input}
             placeholder="Enter your employee ID..."
             placeholderTextColor={"black"}
@@ -40,6 +52,8 @@ const adddetails = () => {
         <View style={styles.inputGroup}>
           <Text style={styles.label}>Designation</Text>
           <TextInput
+            value={designation}
+            onChangeText={(text) => setDesignation(text)}
             style={styles.input}
             placeholder="Designation"
             placeholderTextColor={"black"}
@@ -50,6 +64,8 @@ const adddetails = () => {
         <View style={styles.inputGroup}>
           <Text style={styles.label}>Mobile Number</Text>
           <TextInput
+            value={mobileNumber}
+            onChangeText={(text) => setMobileNumber(text)}
             style={styles.input}
             placeholder="Enter your mobile number here..."
             placeholderTextColor={"black"}
@@ -61,6 +77,8 @@ const adddetails = () => {
         <View style={styles.inputGroup}>
           <Text style={styles.label}>Date of Birth</Text>
           <TextInput
+            value={dateOfBirth}
+            onChangeText={(text) => setDateOfBirth(text)}
             style={styles.input}
             placeholder="Enter your date of birth here..."
             placeholderTextColor={"black"}
@@ -71,6 +89,8 @@ const adddetails = () => {
         <View style={styles.inputGroup}>
           <Text style={styles.label}>Joining Date</Text>
           <TextInput
+            value={joiningDate}
+            onChangeText={(text) => setJoiningDate(text)}
             style={styles.input}
             placeholder="Enter your joining date here..."
             placeholderTextColor={"black"}
@@ -90,6 +110,8 @@ const adddetails = () => {
         <View style={styles.inputGroup}>
           <Text style={styles.label}>Salary</Text>
           <TextInput
+            value={salary}
+            onChangeText={(text) => setSalary(text)}
             style={styles.input}
             placeholder="Enter your salary here..."
             placeholderTextColor={"black"}
@@ -101,6 +123,8 @@ const adddetails = () => {
         <View style={styles.inputGroup}>
           <Text style={styles.label}>Address</Text>
           <TextInput
+            value={address}
+            onChangeText={(text) => setAddress(text)}
             style={styles.input}
             placeholder="Enter your address here..."
             placeholderTextColor={"black"}
