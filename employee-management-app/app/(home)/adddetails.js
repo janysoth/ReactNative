@@ -1,16 +1,55 @@
+import axios from 'axios';
 import React, { useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Switch, Text, TextInput, View } from 'react-native';
+import { Alert, Pressable, ScrollView, StyleSheet, Switch, Text, TextInput, View } from 'react-native';
 
 const adddetails = () => {
   const [isActive, setIsActive] = useState(true);
-  const [name, setName] = useState("");
+  const [employeeName, setEmployeeName] = useState("");
   const [employeeId, setEmployeeId] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
-  const [mobileNumber, setMobileNumber] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [joiningDate, setJoiningDate] = useState("");
   const [salary, setSalary] = useState("");
   const [address, setAddress] = useState("");
   const [designation, setDesignation] = useState("");
+
+  const handleRegister = () => {
+    const employeeData = {
+      employeeName,
+      employeeId,
+      designation,
+      phoneNumber,
+      dateOfBirth,
+      joiningDate,
+      activeEmployee: isActive,
+      salary,
+      address,
+    };
+
+    axios
+      .post("http://localhost:8000/addEmployee", employeeData).then((response) => {
+        Alert.alert(
+          "Registration Successful",
+          "You have been registered successfully."
+        );
+
+        setEmployeeName("");
+        setEmployeeId("");
+        setDateOfBirth("");
+        setPhoneNumber("");
+        setSalary("");
+        setAddress("");
+        setJoiningDate("");
+        setDesignation("");
+      })
+      .catch((error) => {
+        Alert.alert(
+          "Registration failed.",
+          "An error occurred during registration."
+        );
+        console.log("Registered failed. ", error);
+      });
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -28,8 +67,8 @@ const adddetails = () => {
         <View style={styles.inputGroup}>
           <Text style={styles.label}>Full Name (First and last Name)</Text>
           <TextInput
-            value={name}
-            onChangeText={(text) => setName(text)}
+            value={employeeName}
+            onChangeText={(text) => setEmployeeName(text)}
             style={styles.input}
             placeholder="Enter your full name..."
             placeholderTextColor={"black"}
@@ -62,12 +101,12 @@ const adddetails = () => {
 
         {/* Mobile Number TextInput */}
         <View style={styles.inputGroup}>
-          <Text style={styles.label}>Mobile Number</Text>
+          <Text style={styles.label}>Phone Number</Text>
           <TextInput
-            value={mobileNumber}
-            onChangeText={(text) => setMobileNumber(text)}
+            value={phoneNumber}
+            onChangeText={(text) => setPhoneNumber(text)}
             style={styles.input}
-            placeholder="Enter your mobile number here..."
+            placeholder="Enter your phone number here..."
             placeholderTextColor={"black"}
             keyboardType="phone-pad"
           />
@@ -133,6 +172,7 @@ const adddetails = () => {
 
         {/* Add Employee Button */}
         <Pressable
+          onPress={handleRegister}
           style={styles.button}
           accessible={true}
           accessibilityLabel="Add Employee"
