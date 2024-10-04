@@ -3,6 +3,7 @@ import axios from "axios";
 import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import SearchResults from "../../components/SearchResults";
 
 const employees = () => {
   const [employees, setEmployees] = useState([]);
@@ -73,9 +74,24 @@ const employees = () => {
         </Pressable>
       </View>
 
-      <Pressable onPress={() => router.push("/(home)/adddetails")}>
-        <AntDesign name="pluscircle" size={30} color="#0072b1" />
-      </Pressable>
+      {employees.length > 0 ? (
+        <SearchResults data={employees} input={input} setInput={setInput} />
+      ) : (
+        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+          <Text>No Data</Text>
+          <Text>
+            Press on the plus button and add your employee.
+          </Text>
+          <Pressable onPress={() => router.push("/(home)/adddetails")}>
+            <AntDesign
+              style={{ marginTop: 30 }}
+              name="pluscircle"
+              size={24}
+              color="#0072b1"
+            />
+          </Pressable>
+        </View>
+      )}
     </View>
   );
 };
