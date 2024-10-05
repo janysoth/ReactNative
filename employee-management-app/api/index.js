@@ -72,7 +72,21 @@ app.get("/employees", async (req, res) => {
     console.log("Error in fetching all of the employees. ", error);
     res.status(500).json({ message: "Failed to retrieve all of the employees." });
   }
-})
+});
+
+app.delete('/employees/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await Employee.deleteOne({ employeeId: id });
+    if (result.deletedCount > 0) {
+      res.status(200).send({ message: 'Employee deleted successfully' });
+    } else {
+      res.status(404).send({ message: 'Employee not found' });
+    }
+  } catch (error) {
+    res.status(500).send({ message: 'Error deleting employee' });
+  }
+});
 
 
 

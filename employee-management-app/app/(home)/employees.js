@@ -1,14 +1,41 @@
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import axios from "axios";
+import Constants from 'expo-constants';
 import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { Alert, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+
 import SearchResults from "../../components/SearchResults";
 
 const employees = () => {
   const [employees, setEmployees] = useState([]);
   const [input, setInput] = useState("");
   const router = useRouter();
+
+  // const deleteEmployee = (employeeId) => {
+  //   const updatedData = employees.filter(item => item.employeeId !== employeeId);
+
+  //   setEmployees(updatedData);
+  // };
+
+  const API_URL = Constants.expoConfig?.extra?.apiUrl || "http://localhost:8000";
+
+  const deleteEmployee = async (employeeId) => {
+    try {
+      const response = await axios.delete(`${API_URL}/employees/${employeeId}`);
+
+      if (response.status === 200) {
+        const updatedData = employees.filter(item => item.employeeId !== employeeId);
+        setEmployees(updatedData);
+        Alert.alert('Success', 'Employee has been deleted successfully.');
+      } else {
+        Alert.alert('Error', 'Failed to delete employee.');
+      }
+    } catch (error) {
+      console.error('Error in deleting an employee: ', error);
+      Alert.alert('Error', 'Failed to delete employee.');
+    }
+  };
 
   useEffect(() => {
     const fetchEmployeeData = async () => {
@@ -75,12 +102,12 @@ const employees = () => {
       </View>
 
       {employees.length > 0 ? (
-        <SearchResults data={employees} input={input} setInput={setInput} />
+        <SearchResults data={employees} input={input} setInput={setInput} deleteEmployee={deleteEmployee} />
       ) : (
         <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
           <Text>No Data</Text>
           <Text>
-            Press on the plus button and add your employee.
+            Press on the plus button to add a new employee.
           </Text>
           <Pressable onPress={() => router.push("/(home)/adddetails")}>
             <AntDesign

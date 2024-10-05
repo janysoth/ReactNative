@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { Alert, Pressable, ScrollView, StyleSheet, Switch, Text, TextInput, View } from 'react-native';
 
@@ -12,6 +13,8 @@ const adddetails = () => {
   const [salary, setSalary] = useState("");
   const [address, setAddress] = useState("");
   const [designation, setDesignation] = useState("");
+
+  const router = useRouter();
 
   const handleRegister = () => {
     const employeeData = {
@@ -41,6 +44,8 @@ const adddetails = () => {
         setAddress("");
         setJoiningDate("");
         setDesignation("");
+
+        router.push("/");
       })
       .catch((error) => {
         Alert.alert(
