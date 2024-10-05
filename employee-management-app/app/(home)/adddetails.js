@@ -65,8 +65,7 @@ const AddDetails = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.content}>
-        {/* Navigation Icons */}
-        <Pressable style={styles.navIcons}>
+        <View style={styles.navIcons}>
           <Ionicons
             onPress={() => router.back()}
             style={styles.backIcon}
@@ -74,23 +73,15 @@ const AddDetails = () => {
             size={24}
             color="black"
           />
+          <Text style={styles.heading}>Add a New Employee</Text>
           <Ionicons
-            onPress={() => router.push("/")} // Assuming your home route is "/"
+            onPress={() => router.push("/")}
             style={styles.homeIcon}
             name="home"
             size={24}
             color="black"
           />
-        </Pressable>
-
-        <Text style={styles.heading}>Add a New Employee</Text>
-
-        {/* Country TextInput */}
-        <TextInput
-          style={styles.input}
-          placeholder="India"
-          placeholderTextColor={"black"}
-        />
+        </View>
 
         {/* Full Name TextInput */}
         <View style={styles.inputGroup}>
@@ -225,20 +216,22 @@ const styles = StyleSheet.create({
   },
   navIcons: {
     flexDirection: 'row',
-    alignItems: 'center',
+    justifyContent: 'space-between', // Spread icons and text evenly
+    alignItems: 'center', // Align items in the center vertically
     marginBottom: 10,
+    width: '100%', // Takes full width of the container
   },
   backIcon: {
-    width: 50, // Fixed width for back icon
     padding: 10,
   },
   homeIcon: {
-    alignItems: 'flex-end', // Align home icon to the right
-    marginLeft: 320,
+    padding: 10,
   },
   heading: {
     fontSize: 17,
     fontWeight: 'bold',
+    textAlign: 'center', // Align the title in the center
+    flex: 1, // Take up remaining space between icons
   },
   inputGroup: {
     marginVertical: 10,
