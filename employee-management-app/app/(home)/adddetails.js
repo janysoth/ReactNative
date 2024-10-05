@@ -1,9 +1,10 @@
+import { Ionicons } from "@expo/vector-icons";
 import axios from 'axios';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { Alert, Pressable, ScrollView, StyleSheet, Switch, Text, TextInput, View } from 'react-native';
 
-const adddetails = () => {
+const AddDetails = () => {
   const [isActive, setIsActive] = useState(true);
   const [employeeName, setEmployeeName] = useState("");
   const [employeeId, setEmployeeId] = useState("");
@@ -17,6 +18,12 @@ const adddetails = () => {
   const router = useRouter();
 
   const handleRegister = () => {
+    // Basic validation
+    if (!employeeName || !employeeId || !designation || !phoneNumber || !dateOfBirth || !joiningDate || !salary || !address) {
+      Alert.alert("Validation Error", "All fields are required.");
+      return;
+    }
+
     const employeeData = {
       employeeName,
       employeeId,
@@ -30,35 +37,52 @@ const adddetails = () => {
     };
 
     axios
-      .post("http://localhost:8000/addEmployee", employeeData).then((response) => {
-        Alert.alert(
-          "Registration Successful",
-          "You have been registered successfully."
-        );
-
-        setEmployeeName("");
-        setEmployeeId("");
-        setDateOfBirth("");
-        setPhoneNumber("");
-        setSalary("");
-        setAddress("");
-        setJoiningDate("");
-        setDesignation("");
-
+      .post("http://localhost:8000/addEmployee", employeeData)
+      .then((response) => {
+        Alert.alert("Registration Successful", "You have been registered successfully.");
+        // Clear form fields
+        resetForm();
         router.push("/");
       })
       .catch((error) => {
-        Alert.alert(
-          "Registration failed.",
-          "An error occurred during registration."
-        );
-        console.log("Registered failed. ", error);
+        Alert.alert("Registration failed.", error.response?.data?.message || "An error occurred during registration.");
+        console.log("Registration failed. ", error);
       });
+  };
+
+  const resetForm = () => {
+    setEmployeeName("");
+    setEmployeeId("");
+    setDateOfBirth("");
+    setPhoneNumber("");
+    setSalary("");
+    setAddress("");
+    setJoiningDate("");
+    setDesignation("");
+    setIsActive(true); // Reset switch
   };
 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.content}>
+        {/* Navigation Icons */}
+        <Pressable style={styles.navIcons}>
+          <Ionicons
+            onPress={() => router.back()}
+            style={styles.backIcon}
+            name="arrow-back"
+            size={24}
+            color="black"
+          />
+          <Ionicons
+            onPress={() => router.push("/")} // Assuming your home route is "/"
+            style={styles.homeIcon}
+            name="home"
+            size={24}
+            color="black"
+          />
+        </Pressable>
+
         <Text style={styles.heading}>Add a New Employee</Text>
 
         {/* Country TextInput */}
@@ -73,7 +97,7 @@ const adddetails = () => {
           <Text style={styles.label}>Full Name (First and last Name)</Text>
           <TextInput
             value={employeeName}
-            onChangeText={(text) => setEmployeeName(text)}
+            onChangeText={setEmployeeName}
             style={styles.input}
             placeholder="Enter your full name..."
             placeholderTextColor={"black"}
@@ -85,7 +109,7 @@ const adddetails = () => {
           <Text style={styles.label}>Employee ID</Text>
           <TextInput
             value={employeeId}
-            onChangeText={(text) => setEmployeeId(text)}
+            onChangeText={setEmployeeId}
             style={styles.input}
             placeholder="Enter your employee ID..."
             placeholderTextColor={"black"}
@@ -97,7 +121,7 @@ const adddetails = () => {
           <Text style={styles.label}>Designation</Text>
           <TextInput
             value={designation}
-            onChangeText={(text) => setDesignation(text)}
+            onChangeText={setDesignation}
             style={styles.input}
             placeholder="Designation"
             placeholderTextColor={"black"}
@@ -109,7 +133,7 @@ const adddetails = () => {
           <Text style={styles.label}>Phone Number</Text>
           <TextInput
             value={phoneNumber}
-            onChangeText={(text) => setPhoneNumber(text)}
+            onChangeText={setPhoneNumber}
             style={styles.input}
             placeholder="Enter your phone number here..."
             placeholderTextColor={"black"}
@@ -122,7 +146,7 @@ const adddetails = () => {
           <Text style={styles.label}>Date of Birth</Text>
           <TextInput
             value={dateOfBirth}
-            onChangeText={(text) => setDateOfBirth(text)}
+            onChangeText={setDateOfBirth}
             style={styles.input}
             placeholder="Enter your date of birth here..."
             placeholderTextColor={"black"}
@@ -134,7 +158,7 @@ const adddetails = () => {
           <Text style={styles.label}>Joining Date</Text>
           <TextInput
             value={joiningDate}
-            onChangeText={(text) => setJoiningDate(text)}
+            onChangeText={setJoiningDate}
             style={styles.input}
             placeholder="Enter your joining date here..."
             placeholderTextColor={"black"}
@@ -146,7 +170,7 @@ const adddetails = () => {
           <Text style={styles.label}>Active Employee</Text>
           <Switch
             value={isActive}
-            onValueChange={(value) => setIsActive(value)}
+            onValueChange={setIsActive}
           />
         </View>
 
@@ -155,7 +179,7 @@ const adddetails = () => {
           <Text style={styles.label}>Salary</Text>
           <TextInput
             value={salary}
-            onChangeText={(text) => setSalary(text)}
+            onChangeText={setSalary}
             style={styles.input}
             placeholder="Enter your salary here..."
             placeholderTextColor={"black"}
@@ -168,7 +192,7 @@ const adddetails = () => {
           <Text style={styles.label}>Address</Text>
           <TextInput
             value={address}
-            onChangeText={(text) => setAddress(text)}
+            onChangeText={setAddress}
             style={styles.input}
             placeholder="Enter your address here..."
             placeholderTextColor={"black"}
@@ -189,7 +213,7 @@ const adddetails = () => {
   );
 };
 
-export default adddetails;
+export default AddDetails;
 
 const styles = StyleSheet.create({
   container: {
@@ -198,6 +222,19 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 10,
+  },
+  navIcons: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  backIcon: {
+    width: 50, // Fixed width for back icon
+    padding: 10,
+  },
+  homeIcon: {
+    alignItems: 'flex-end', // Align home icon to the right
+    marginLeft: 320,
   },
   heading: {
     fontSize: 17,
