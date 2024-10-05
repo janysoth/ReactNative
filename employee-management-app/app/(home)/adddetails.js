@@ -85,7 +85,7 @@ const AddDetails = () => {
 
         {/* Full Name TextInput */}
         <View style={styles.inputGroup}>
-          <Text style={styles.label}>Full Name (First and last Name)</Text>
+          <Text style={styles.label}>Full Name (First and Last Name)</Text>
           <TextInput
             value={employeeName}
             onChangeText={setEmployeeName}
