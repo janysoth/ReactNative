@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const moment = require("moment");
 
 const app = express();
 const port = 8000;
@@ -128,5 +129,103 @@ app.get("/attendance", async (req, res) => {
   }
 });
 
+app.get("/attendance-report-all-employees", async (req, res) => {
+  try {
+    const { month, year } = req.query;
+    console.log("Query parameters: ", month, year);
+
+    const startDate = moment(`${year}-${month}-01`, "YYYY-MM-DD").startOf("month").toDate();
+    const endDate = moment(startDate).endOf("month").toDate();
+
+    // Aggregate Attendance Data for all employees and date range
+    const report = await Attendance.aggregate([
+      {
+        $match: {
+          $expr: {
+            $and: [
+              {
+                $eq: [
+                  {
+                    $month: { $dateFromString: { dateString: "$date" } }
+                  },
+                  parseInt(req.query.month),
+                ],
+              },
+              {
+                $eq: [
+                  {
+                    $year: { $dateFromString: { dateString: "$date" } }
+                  },
+                  parseInt(req.query.year),
+                ],
+              },
+            ],
+          },
+        },
+      },
+      // End of $match
+
+      {
+        $group: {
+          _id: "$employeeId",
+          present: {
+            $sum: {
+              $cond: { if: { $eq: ["$status", "present"] }, then: 1, else: 0 },
+            },
+          },
+          absent: {
+            $sum: {
+              $cond: { if: { $eq: ["$status", "absent"] }, then: 1, else: 0 },
+            },
+          },
+          halfday: {
+            $sum: {
+              $cond: { if: { $eq: ["$status", "halfday"] }, then: 1, else: 0 },
+            },
+          },
+          holiday: {
+            $sum: {
+              $cond: { if: { $eq: ["$status", "holiday"] }, then: 1, else: 0 },
+            },
+          },
+        },
+      },
+      // End of $group
+
+      {
+        $lookup: {
+          from: "employees", // Name of the employee collection
+          localField: "_id",
+          foreignField: "employeeId",
+          as: "employeeDetails",
+        },
+      },
+      // End of $lookup
+
+      {
+        $unwind: "$employeeDetails", // Unwind the employeeDetails array
+      },
+      // End of #unwind
+
+      {
+        $project: {
+          _id: 1,
+          present: 1,
+          absent: 1,
+          halfday: 1,
+          name: "$employeeDetails.employeeName",
+          designation: "$employeeDetails.designation",
+          salary: "$employeeDetails.salary",
+          employeeId: "$employeeDetails.employeeId",
+        },
+      },
+      // End of $project
+    ]);
+
+    res.status(200).json({ report });
+  } catch (error) {
+    res.status(500).json({ message: "Error in fetching Attendance Summary Report. " });
+  }
+})
 
 
