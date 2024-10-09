@@ -30,7 +30,7 @@ const index = () => {
             <ListCard
               iconName="checkmark"
               text="Mark Attendance"
-              onPress={() => { }}
+              onPress={() => router.push("/(home)/markattendance")}
             />
           </View>
 
