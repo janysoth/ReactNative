@@ -8,8 +8,6 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 const markattendance = () => {
   const router = useRouter();
   const [currentDate, setCurrentDate] = useState(moment());
-  const [attendance, setAttendance] = useState([]);
-  const [employees, setEmployees] = useState([]);
 
   const goToNextDay = () => {
     const nextDate = moment(currentDate).add(1, "days");
@@ -22,41 +20,38 @@ const markattendance = () => {
   };
 
   const formatDate = (date) => {
-    return date.format("MMM DD, YYYY");
+    return date.format("MMMM DD, YYYY");
   };
 
-  // To Fetch All of the Employoee Data
+  const [employees, setEmployees] = useState([]);
   useEffect(() => {
     const fetchEmployeeData = async () => {
       try {
         const response = await axios.get("http://localhost:8000/employees");
         setEmployees(response.data);
       } catch (error) {
-        console.log("Error in fetching EmployeeData. ", error);
+        console.log("error fetching employee data", error);
       }
     };
     fetchEmployeeData();
   }, []);
-
-  // To Fetch All of the Attendance Data
+  const [attendance, setAttendance] = useState([]);
   const fetchAttendanceData = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/attendance", {
+      const response = await axios.get(`http://localhost:8000/attendance`, {
         params: {
-          date: formatDate(currentDate),
-          // date: currentDate.format("MMM DD, YYYYY"),
-        }
+          date: currentDate.format("MMMM D, YYYY"),
+        },
       });
       setAttendance(response.data);
     } catch (error) {
-      console.log("Error in fetching Attendance Data. ", error);
+      console.log("error fetching attendance data", error);
     }
   };
 
   useEffect(() => {
     fetchAttendanceData();
   }, [currentDate]);
-
   const employeeWithAttendance = employees.map((employee) => {
     const attendanceRecord = attendance.find(
       (record) => record.employeeId === employee.employeeId
@@ -67,11 +62,9 @@ const markattendance = () => {
       status: attendanceRecord ? attendanceRecord.status : "", // 'Not Marked' or a default status
     };
   });
-
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
       <Pressable>
-        {/* Change of Date Ticker */}
         <View
           style={{
             flexDirection: "row",
@@ -96,12 +89,11 @@ const markattendance = () => {
             color="black"
           />
         </View>
-        {/* End of Change of Date Ticker */}
 
         <View style={{ marginHorizontal: 12 }}>
           {employeeWithAttendance.map((item, index) => (
             <Pressable
-              onPress={() => {
+              onPress={() =>
                 router.push({
                   pathname: "/[user]",
                   params: {
@@ -109,9 +101,8 @@ const markattendance = () => {
                     id: item.employeeId,
                     salary: item?.salary,
                     designation: item?.designation,
-                  }
-                });
-              }
+                  },
+                })
               }
               key={index}
               style={{
@@ -136,7 +127,6 @@ const markattendance = () => {
                   {item?.employeeName?.charAt(0)}
                 </Text>
               </View>
-
               <View style={{ flex: 1 }}>
                 <Text style={{ fontSize: 16, fontWeight: "bold" }}>
                   {item?.employeeName}
@@ -145,7 +135,6 @@ const markattendance = () => {
                   {item?.designation} ({item?.employeeId})
                 </Text>
               </View>
-
               {item?.status && (
                 <View
                   style={{
@@ -161,7 +150,7 @@ const markattendance = () => {
                   <Text
                     style={{ fontSize: 16, color: "white", fontWeight: "bold" }}
                   >
-                    {item.status.charAt(0)}
+                    {item.status.charAt(0).toUpperCase()}
                   </Text>
                 </View>
               )}
