@@ -33,6 +33,10 @@ const User = () => {
     return date.format("MMMM DD, YYYY");
   };
 
+  const formatSalary = (salary) => {
+    return `$${parseFloat(salary).toLocaleString()}`;
+  };
+
   const submitAttendance = async () => {
     try {
       const attendanceData = {
@@ -113,11 +117,14 @@ const User = () => {
 
       {/* Base Pay */}
       <Text style={{ fontSize: 16, fontWeight: "500", marginHorizontal: 12 }}>
-        Base Pay : {params?.salary}
+        Base Pay : {formatSalary(params?.salary)}
       </Text>
 
       {/* Attendance */}
-      <View style={{ marginHorizontal: 12 }}>
+      <View style={{
+        marginHorizontal: 12, alignItems: "center",
+        justifyContent: "center",
+      }}>
         <Text
           style={{
             fontSize: 16,
@@ -126,7 +133,7 @@ const User = () => {
             marginTop: 7,
           }}
         >
-          ATTENDANCE
+          ATTENDANCE:
         </Text>
 
         <View
