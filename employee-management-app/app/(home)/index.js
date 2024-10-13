@@ -36,10 +36,31 @@ const index = () => {
 
           {/* Reports */}
           <View style={styles.reportContainer}>
-            <ReportCard icon="newspaper-outline" IconComponent={Ionicons} title="Attendance Report" />
-            <ReportCard icon="repo-pull" IconComponent={Octicons} title="Summary Report" />
-            <ReportCard icon="report" IconComponent={Octicons} title="All Generate Report" />
-            <ReportCard icon="people" IconComponent={Ionicons} title="Overtime Employees" onPress={() => console.log("Pressed")} />
+            <ReportCard
+              icon="newspaper-outline"
+              IconComponent={Ionicons}
+              title="Attendance Report"
+            />
+
+            <ReportCard
+              icon="repo-pull"
+              IconComponent={Octicons}
+              title="Summary Report"
+              onPress={() => router.push("/(home)/summary")}
+            />
+
+            <ReportCard
+              icon="report"
+              IconComponent={Octicons}
+              title="All Generate Report"
+            />
+
+            <ReportCard
+              icon="people"
+              IconComponent={Ionicons}
+              title="Overtime Employees"
+              onPress={() => console.log("Pressed")}
+            />
           </View>
 
           <View style={styles.row}>
