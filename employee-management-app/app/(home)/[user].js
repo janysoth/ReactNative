@@ -1,19 +1,21 @@
-import { AntDesign, Entypo, FontAwesome5 } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import axios from "axios";
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router"; // Import useRouter
 import moment from "moment";
 import React, { useState } from "react";
 import {
   Alert,
   Pressable,
-  StyleSheet,
   Text,
   TextInput,
   View,
 } from "react-native";
 
-const user = () => {
+import AttendanceStatusButton from "../../components/AttendanceStatusButton";
+
+const User = () => {
   const params = useLocalSearchParams();
+  const router = useRouter(); // Initialize useRouter
   const [attendanceStatus, setAttendanceStatus] = useState("present");
   const [currentDate, setCurrentDate] = useState(moment());
 
@@ -47,9 +49,12 @@ const user = () => {
 
       if (response.status === 200) {
         Alert.alert(`Attendance submitted successfully for ${params?.name}`);
+        // Redirect to markattendance page after submission
+        router.push("/markattendance");
       }
     } catch (error) {
       console.log("Error in submitting attendance. ", error);
+      Alert.alert("Error", "Failed to submit attendance. Please try again.");
     }
   };
 
@@ -106,10 +111,12 @@ const user = () => {
       </Pressable>
       {/* End of the Employee Pressable */}
 
+      {/* Base Pay */}
       <Text style={{ fontSize: 16, fontWeight: "500", marginHorizontal: 12 }}>
-        Basic Pay : {params?.salary}
+        Base Pay : {params?.salary}
       </Text>
 
+      {/* Attendance */}
       <View style={{ marginHorizontal: 12 }}>
         <Text
           style={{
@@ -121,6 +128,7 @@ const user = () => {
         >
           ATTENDANCE
         </Text>
+
         <View
           style={{
             flexDirection: "row",
@@ -129,46 +137,21 @@ const user = () => {
             marginVertical: 10,
           }}
         >
-          <Pressable
+          <AttendanceStatusButton
+            status="present"
+            currentStatus={attendanceStatus}
             onPress={() => setAttendanceStatus("present")}
-            style={{
-              backgroundColor: "#C4E0E5",
-              padding: 10,
-              borderRadius: 8,
-              flexDirection: "row",
-              alignItems: "center",
-              gap: 10,
-              flex: 1,
-            }}
-          >
-            {attendanceStatus === "present" ? (
-              <FontAwesome5 name="dot-circle" size={24} color="black" />
-            ) : (
-              <Entypo name="circle" size={24} color="black" />
-            )}
-            <Text>Present</Text>
-          </Pressable>
+            label="Present"
+          />
 
-          <Pressable
+          <AttendanceStatusButton
+            status="absent"
+            currentStatus={attendanceStatus}
             onPress={() => setAttendanceStatus("absent")}
-            style={{
-              backgroundColor: "#C4E0E5",
-              padding: 10,
-              borderRadius: 8,
-              flexDirection: "row",
-              alignItems: "center",
-              gap: 10,
-              flex: 1,
-            }}
-          >
-            {attendanceStatus === "absent" ? (
-              <FontAwesome5 name="dot-circle" size={24} color="black" />
-            ) : (
-              <Entypo name="circle" size={24} color="black" />
-            )}
-            <Text>Absent</Text>
-          </Pressable>
+            label="Absent"
+          />
         </View>
+
         <View
           style={{
             flexDirection: "row",
@@ -177,46 +160,21 @@ const user = () => {
             marginVertical: 10,
           }}
         >
-          <Pressable
+          <AttendanceStatusButton
+            status="halfday"
+            currentStatus={attendanceStatus}
             onPress={() => setAttendanceStatus("halfday")}
-            style={{
-              backgroundColor: "#C4E0E5",
-              padding: 10,
-              borderRadius: 8,
-              flexDirection: "row",
-              alignItems: "center",
-              gap: 10,
-              flex: 1,
-            }}
-          >
-            {attendanceStatus === "halfday" ? (
-              <FontAwesome5 name="dot-circle" size={24} color="black" />
-            ) : (
-              <Entypo name="circle" size={24} color="black" />
-            )}
-            <Text>Half Day</Text>
-          </Pressable>
+            label="Half Day"
+          />
 
-          <Pressable
+          <AttendanceStatusButton
+            status="holiday"
+            currentStatus={attendanceStatus}
             onPress={() => setAttendanceStatus("holiday")}
-            style={{
-              backgroundColor: "#C4E0E5",
-              padding: 10,
-              borderRadius: 8,
-              flexDirection: "row",
-              alignItems: "center",
-              gap: 10,
-              flex: 1,
-            }}
-          >
-            {attendanceStatus === "holiday" ? (
-              <FontAwesome5 name="dot-circle" size={24} color="black" />
-            ) : (
-              <Entypo name="circle" size={24} color="black" />
-            )}
-            <Text>Holiday</Text>
-          </Pressable>
+            label="Holiday"
+          />
         </View>
+
         <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
           <TextInput
             style={{
@@ -268,4 +226,4 @@ const user = () => {
   );
 };
 
-export default user;
+export default User;
