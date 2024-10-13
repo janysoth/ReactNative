@@ -54,7 +54,7 @@ const User = () => {
       if (response.status === 200) {
         Alert.alert(`Attendance submitted successfully for ${params?.name}`);
         // Redirect to markattendance page after submission
-        router.push("/markattendance");
+        router.push("/");
       }
     } catch (error) {
       console.log("Error in submitting attendance. ", error);

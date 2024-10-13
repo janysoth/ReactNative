@@ -213,6 +213,7 @@ app.get("/attendance-report-all-employees", async (req, res) => {
           present: 1,
           absent: 1,
           halfday: 1,
+          holiday: 1,
           name: "$employeeDetails.employeeName",
           designation: "$employeeDetails.designation",
           salary: "$employeeDetails.salary",
